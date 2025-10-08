@@ -1,5 +1,6 @@
 import React from "react";
 import errorImg from "../assets/App-Error.png";
+import { Navigate } from "react-router";
 
 const AppErrorPage = () => {
   return (
@@ -13,7 +14,7 @@ const AppErrorPage = () => {
           The page you are looking for is not available
         </p>
       </div>
-      <button onClick={() => navigate("/")} className="btn-primary ">
+      <button onClick={() => Navigate("/")} className="btn-primary ">
         Go Back!
       </button>
     </section>
