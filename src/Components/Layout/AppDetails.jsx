@@ -1,19 +1,25 @@
-import React, { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import useStoreFetch from "../../Hooks/useStoreFetch.jsx";
-import Loading from "../Ui/Loading.jsx";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
-import RatingChart from "./RatingChart.jsx";
 import InstallContext from "../../Context/InstallationContext.jsx";
+import useInstallationStorage from "../../Hooks/useInstallationStorage.js";
+import useStoreFetch from "../../Hooks/useStoreFetch.jsx";
+import Loading from "../Ui/Loading.jsx";
+import RatingChart from "./RatingChart.jsx";
 
 const AppDetails = () => {
-  const [install, setInstall] = useState(false);
-  const { setAppSelect } = useContext(InstallContext);
-
+  const { appSelect, newAppDetails } = useContext(InstallContext);
   const { id } = useParams();
   const url = `/store.json`;
   const { isLoading, error, appsData } = useStoreFetch(url);
+  const [install, setInstall] = useState(false);
+
+  useEffect(() => {
+    const installedApps = appSelect.some((app) => app.id.toString() === id);
+    setInstall(installedApps);
+  }, [appSelect, id]);
+
   if (isLoading) {
     return (
       <div>
@@ -27,7 +33,7 @@ const AppDetails = () => {
     return <span>No Apps Available.</span>;
   }
   const appDetails = appsData.find((item) => item.id.toString() === id);
-
+  if (!appDetails) return <span>Not Data Found</span>;
   const {
     title,
     description,
@@ -40,14 +46,11 @@ const AppDetails = () => {
     companyName,
   } = appDetails;
 
-  // handle install fucntionality create
-  const handleInstallation = () => {
-    setInstall(true);
-    setAppSelect((prevState) => {
-      const newArray = prevState.some((item) => item.id === appDetails.id);
-      if (newArray) return prevState;
-      return [...prevState, appDetails];
-    });
+  // handle install functionality create
+  const handleInstallationApp = () => {
+    if (!appDetails) return;
+    if (install) return;
+    newAppDetails(appDetails);
   };
 
   return (
@@ -91,7 +94,8 @@ const AppDetails = () => {
           </div>
           <div>
             <button
-              onClick={handleInstallation}
+              type="button"
+              onClick={handleInstallationApp}
               disabled={install}
               className="btn bg-green-400 text-white font-semibold hover:bg-green-500"
             >

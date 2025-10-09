@@ -1,10 +1,28 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
 import InstallContext from "../../Context/InstallationContext";
 
 const InstallationCard = () => {
-  const { appSelect } = useContext(InstallContext);
+  const { appSelect, removeAppDetails } = useContext(InstallContext);
+  const [sorting, setSorting] = useState("default");
+  const handleUninstallation = (id) => {
+    removeAppDetails(id);
+  };
+  //sorting size
+
+  const handleSortChange = (e) => {
+    setSorting(e.target.value);
+  };
+
+  const sortData = () => {
+    const sortCopyData = [...appSelect];
+    if (sorting === "low-high") {
+      return sortCopyData.sort((a, b) => a.size - b.size);
+    } else if (sorting === "high-low") {
+      return sortCopyData.sort((a, b) => b.size - a.size);
+    } else return sortCopyData;
+  };
 
   return (
     <section className="flex flex-col gap-4 py-10 px-20">
@@ -22,50 +40,51 @@ const InstallationCard = () => {
           Found
         </span>
         <select
-          defaultValue="Sort By Size"
+          value={sorting}
+          onChange={handleSortChange}
           className="border border-gray-300 p-2 rounded-md"
         >
-          <option disabled={true}>Sort By Size</option>
-          <option>Low-High</option>
-          <option>High-Low</option>
+          <option value="default">Sort By Size</option>
+          <option value="low-high">Low-High</option>
+          <option value="high-low">High-Low</option>
         </select>
       </div>
       <section>
-        {appSelect &&
-          appSelect.map((app) => {
-            const { image, title, downloads, ratingAvg, size, id } = app;
-            return (
-              <div
-                key={id}
-                className="flex justify-between items-center mb-4 border border-gray-300 rounded-md py-2 px-4"
-              >
-                <div className="flex gap-5">
-                  <img
-                    src={image}
-                    alt={title}
-                    className="w-[8rem] rounded-md"
-                  />
-                  <div className="flex flex-col gap-1">
-                    <span className="text- font-semibold">{title}</span>
-                    <div className="flex gap-5">
-                      <p className="flex items-center gap-1 text-xs font-semibold">
-                        <img className="w-[.9rem]" src={downImg} alt="icon" />
-                        {downloads}
-                      </p>
-                      <p className="flex items-center gap-1 text-xs font-semibold">
-                        <img className="w-[.9rem]" src={rateImg} alt="icon" />
-                        {ratingAvg}
-                      </p>
-                      <p className="text-xs font-semibold">{size}</p>
-                    </div>
+        {sortData().map((app) => {
+          const { image, title, downloads, ratingAvg, size, id } = app;
+          return (
+            <div
+              key={id}
+              className="flex justify-between items-center mb-4 border border-gray-300 rounded-md py-2 px-4"
+            >
+              <div className="flex gap-5">
+                <img src={image} alt={title} className="w-[8rem] rounded-md" />
+                <div className="flex flex-col gap-1">
+                  <span className="text- font-semibold">{title}</span>
+                  <div className="flex gap-5">
+                    <p className="flex items-center gap-1 text-xs font-semibold">
+                      <img className="w-[.9rem]" src={downImg} alt="icon" />
+                      {downloads}
+                    </p>
+                    <p className="flex items-center gap-1 text-xs font-semibold">
+                      <img className="w-[.9rem]" src={rateImg} alt="icon" />
+                      {ratingAvg}
+                    </p>
+                    <p className="text-xs font-semibold">{size}</p>
                   </div>
                 </div>
-                <div>
-                  <button className="btn">Uninstall</button>
-                </div>
               </div>
-            );
-          })}
+              <div>
+                <button
+                  onClick={() => handleUninstallation(id)}
+                  className="btn"
+                >
+                  Uninstall
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </section>
     </section>
   );
