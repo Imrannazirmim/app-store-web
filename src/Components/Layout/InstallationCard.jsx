@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
 import InstallContext from "../../Context/InstallationContext";
@@ -6,8 +7,11 @@ import InstallContext from "../../Context/InstallationContext";
 const InstallationCard = () => {
   const { appSelect, removeAppDetails } = useContext(InstallContext);
   const [sorting, setSorting] = useState("default");
+
   const handleUninstallation = (id) => {
     removeAppDetails(id);
+    const toasti = appSelect.find((item) => item.id === id);
+    toast(`Remove: ${toasti.title}`);
   };
   //sorting size
 
@@ -49,6 +53,8 @@ const InstallationCard = () => {
           <option value="high-low">High-Low</option>
         </select>
       </div>
+      <ToastContainer />
+
       <section>
         {sortData().map((app) => {
           const { image, title, downloads, ratingAvg, size, id } = app;
@@ -77,7 +83,7 @@ const InstallationCard = () => {
               <div>
                 <button
                   onClick={() => handleUninstallation(id)}
-                  className="btn"
+                  className="btn bg-green-400 hover:bg-green-300"
                 >
                   Uninstall
                 </button>

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
 import InstallContext from "../../Context/InstallationContext.jsx";
-import useInstallationStorage from "../../Hooks/useInstallationStorage.js";
 import useStoreFetch from "../../Hooks/useStoreFetch.jsx";
 import Loading from "../Ui/Loading.jsx";
 import RatingChart from "./RatingChart.jsx";
@@ -51,6 +51,7 @@ const AppDetails = () => {
     if (!appDetails) return;
     if (install) return;
     newAppDetails(appDetails);
+    toast(`Installed: ${title}`);
   };
 
   return (
@@ -101,6 +102,7 @@ const AppDetails = () => {
             >
               {install ? "Install" : `Install Now (${size})`}
             </button>
+            <ToastContainer />
           </div>
         </div>
       </section>
