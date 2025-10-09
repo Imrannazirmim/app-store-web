@@ -12,7 +12,7 @@ const TrendingAppCard = ({ app }) => {
           <img
             src={image}
             alt={title}
-            className="object-cover h-full w-full rounded-md"
+            className="object-cover h-[30vh] w-full rounded-md"
           />
           <span>{title}</span>
           <div className="flex justify-between items-center">

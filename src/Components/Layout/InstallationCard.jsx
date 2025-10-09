@@ -29,7 +29,7 @@ const InstallationCard = () => {
   };
 
   return (
-    <section className="flex flex-col gap-4 py-10 px-20">
+    <section className="flex flex-col gap-4 py-5 px-5 md:py-10 md:px-20 ">
       <div className="text-center">
         <h2 className="text-4xl font-semibold text-gray-700 mt-5">
           Your Installed Apps
@@ -46,7 +46,7 @@ const InstallationCard = () => {
         <select
           value={sorting}
           onChange={handleSortChange}
-          className="border border-gray-300 p-2 rounded-md"
+          className="bg-white p-2 rounded-md"
         >
           <option value="default">Sort By Size</option>
           <option value="low-high">Low-High</option>
@@ -61,7 +61,7 @@ const InstallationCard = () => {
           return (
             <div
               key={id}
-              className="flex justify-between items-center mb-4 border border-gray-300 rounded-md py-2 px-4"
+              className="flex bg-white justify-between items-center mb-4 rounded-md py-2 px-4"
             >
               <div className="flex gap-5">
                 <img src={image} alt={title} className="w-[8rem] rounded-md" />

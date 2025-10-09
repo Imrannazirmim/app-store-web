@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
+import reviewImg from "../../assets/icon-review.png";
 import InstallContext from "../../Context/InstallationContext.jsx";
 import useStoreFetch from "../../Hooks/useStoreFetch.jsx";
 import Loading from "../Ui/Loading.jsx";
@@ -55,10 +56,10 @@ const AppDetails = () => {
   };
 
   return (
-    <section className="px-20 py-20">
-      <section className="flex gap-10">
+    <section className="px-20 py-20 bg-[#E9E9E9] ">
+      <section className="flex flex-col lg:flex-row gap-10">
         <div>
-          <img src={image} alt={title} className="rounded-md" />
+          <img src={image} alt={title} className="h-[30vh] rounded-md" />
         </div>
         <div className="flex flex-col gap-10">
           <div>
@@ -70,26 +71,26 @@ const AppDetails = () => {
             </p>
           </div>
           <hr className="text-gray-400 w-full" />
-          <div className="flex gap-20">
+          <div className="flex flex-wrap gap-20 items-center">
             <div className="flex flex-col-reverse gap-4">
               <span className="text-[.9rem]">Downloads</span>
               <div className="flex gap-4 items-center">
-                <h3 className="font-semibold text-4xl mt-1">{downloads}</h3>
-                <img src={downImg} alt="download icon" />
+                <h3 className="font-semibold text-3xl mt-1">{downloads}</h3>
+                <img src={downImg} alt="download icon" className="w-[2rem]" />
               </div>
             </div>
             <div className="flex flex-col-reverse gap-4">
               <span className="text-[.9rem]">Avarage Ratings</span>
               <div className="flex gap-4 items-center">
-                <h3 className="font-semibold text-4xl mt-1">{ratingAvg}</h3>
-                <img src={rateImg} alt="download icon" />
+                <h3 className="font-semibold text-3xl mt-1">{ratingAvg}</h3>
+                <img src={rateImg} alt="download icon" className="w-[2rem]" />
               </div>
             </div>
             <div className="flex flex-col-reverse gap-4">
               <span className="text-[.9rem]">Total Reviews</span>
               <div className="flex gap-4 items-center">
-                <h3 className="font-semibold text-4xl mt-1">{reviews}</h3>
-                <img src={downImg} alt="download icon" />
+                <h3 className="font-semibold text-3xl mt-1">{reviews}</h3>
+                <img src={reviewImg} alt="download icon" className="w-[2rem]" />
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@ const AppDetails = () => {
               type="button"
               onClick={handleInstallationApp}
               disabled={install}
-              className="btn bg-green-400 text-white font-semibold hover:bg-green-500"
+              className="btn bg-[#00D390] text-white font-semibold hover:bg-green-500"
             >
               {install ? "Install" : `Install Now (${size})`}
             </button>

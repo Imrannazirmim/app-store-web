@@ -14,7 +14,7 @@ const Apps = () => {
   }
   if (error) return <span>Failed loading Data. Please try again.</span>;
   return (
-    <section className="px-20 py-10">
+    <section className="px-20 py-10 bg-[#E9E9E9] ">
       <div className="flex flex-col gap-2 text-center py-20">
         <h2 className="text-5xl font-semibold text-gray-800">
           Our All Application

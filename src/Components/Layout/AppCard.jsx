@@ -1,18 +1,17 @@
-import React from "react";
+import { NavLink } from "react-router";
 import downImg from "../../assets/icon-downloads.png";
 import rateImg from "../../assets/icon-ratings.png";
-import { NavLink } from "react-router";
 
 const AppCard = ({ app }) => {
   const { image, title, downloads, ratingAvg, id } = app;
   return (
     <NavLink to={`${id}`}>
-      <div className="card">
+      <div className="card ">
         <div className="flex flex-col gap-4">
           <img
             src={image}
             alt={title}
-            className="object-cover h-full w-full rounded-md"
+            className="object-cover h-[30vh] w-full rounded-md"
           />
           <span>{title}</span>
           <div className="flex justify-between items-center">
