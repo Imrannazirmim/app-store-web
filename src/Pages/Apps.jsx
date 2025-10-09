@@ -49,16 +49,26 @@ const Apps = () => {
           />
         </div>
       </div>
-      <div className="gird-card ">
+      <div>
         {searchApps.length > 0 ? (
-          searchApps?.map((app) => <AppCard key={app.id} app={app} />)
+          <div className="gird-card ">
+            {searchApps?.map((app) => (
+              <AppCard key={app.id} app={app} />
+            ))}
+          </div>
         ) : (
-          <section className="container mx-auto">
-            <div className="w-full h-screen container flex flex-col mx-auto text-center gap-4">
-              <img src={errorImg} alt="error image" />
-              <h2 className="text-3xl font-semibold text-center">
+          <section className="flex items-center justify-center w-full h-screen">
+            <div className="text-center gap-4">
+              <img src={errorImg} alt="error image" className="mx-auto" />
+              <h2 className="text-3xl mt-5 font-semibold">
                 Oops, Apps not found!
               </h2>
+              <button
+                className="btn-primary mt-5"
+                onClick={() => setSearchTerm("")}
+              >
+                Show All
+              </button>
             </div>
           </section>
         )}
